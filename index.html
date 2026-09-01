@@ -47,8 +47,10 @@
     .topnav a{font-size:.92rem;text-decoration:none;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.09)}
     .hero{
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,255,255,.12), transparent 28%),
-        linear-gradient(135deg,var(--green-dark),var(--green));
+        linear-gradient(90deg, rgba(20,36,24,.82) 0%, rgba(25,48,31,.72) 42%, rgba(31,55,38,.52) 100%),
+        url('hero-ecopol.png');
+      background-size:cover;
+      background-position:center center;
       color:white;
       padding:74px 0 66px;
     }
@@ -70,8 +72,8 @@
     .btn-primary{background:white;color:var(--green-dark)}
     .btn-ghost{background:transparent;color:white;border:1px solid rgba(255,255,255,.45)}
     .hero-card{
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
       border-radius:var(--radius);padding:25px;backdrop-filter:blur(8px)
     }
     .hero-card b{font-size:1.08rem}
@@ -148,6 +150,7 @@
       .kpi-grid{grid-template-columns:1fr}
       .kpi+.kpi{border-left:0;border-top:1px solid var(--line)}
       .docs-grid{grid-template-columns:1fr}
+      .updates-grid{grid-template-columns:1fr}
       .topnav{display:none}
       .brand small{display:none}
       section{padding:55px 0}
@@ -171,6 +174,17 @@
     .doc-names ul{margin:0;padding-left:20px}
     .doc-names li{margin:8px 0;color:var(--muted)}
 
+  
+    .updates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+    .update-card{
+      border:1px solid var(--line);border-radius:18px;padding:22px;background:white
+    }
+    .update-date{
+      font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;
+      font-weight:850;color:var(--green);margin-bottom:8px
+    }
+    .update-card p:last-child{margin-bottom:0}
+
   </style>
 </head>
 <body>
@@ -185,6 +199,7 @@
         <a href="#ricorso">Il ricorso</a>
         <a href="#sostieni">Sostieni</a>
         <a href="#documenti">Documenti</a>
+        <a href="#aggiornamenti">Aggiornamenti</a>
       </nav>
     </div>
   </header>
@@ -314,6 +329,35 @@
         </div>
       </div>
     </section>
+
+    <section id="aggiornamenti">
+      <div class="wrap">
+        <div class="section-tag">Aggiornamenti</div>
+        <h2>Aggiornamenti sul ricorso</h2>
+        <p class="section-lead">In questa sezione saranno pubblicati gli sviluppi della raccolta fondi e del percorso legato al ricorso, con comunicazioni essenziali e date di riferimento.</p>
+
+        <div class="updates-grid">
+          <div class="update-card">
+            <div class="update-date">31 agosto 2026</div>
+            <h3>Pubblicazione del provvedimento</h3>
+            <p>La Provincia di Rovigo ha pubblicato il provvedimento autorizzativo relativo all’ampliamento dell’impianto ECOPOL.</p>
+          </div>
+
+          <div class="update-card">
+            <div class="update-date">Settembre 2026</div>
+            <h3>Avvio della raccolta fondi</h3>
+            <p>Il Comitato Il Riccio ha attivato la raccolta fondi per sostenere le spese legali e tecniche connesse all’azione davanti alla giustizia amministrativa.</p>
+          </div>
+
+          <div class="update-card">
+            <div class="update-date">Prossimi aggiornamenti</div>
+            <h3>Questa sezione resterà aggiornata</h3>
+            <p>Qui saranno inserite le comunicazioni successive, in modo sintetico e verificabile, man mano che il percorso andrà avanti.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <section id="comitato">
       <div class="wrap about">
