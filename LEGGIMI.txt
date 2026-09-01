@@ -1,0 +1,16 @@
+SITO RACCOLTA FONDI ECOPOL — COMITATO IL RICCIO
+
+Contenuto:
+- index.html
+- logo-il-riccio.png
+
+PUBBLICAZIONE SU NETLIFY
+1. Estrai lo ZIP.
+2. Vai su Netlify.
+3. Trascina l'intera cartella ricorso_ecopol_site nell'area di deploy manuale.
+4. Netlify assegnerà subito un indirizzo gratuito.
+5. Il bottone WhatsApp inserirà automaticamente nel messaggio l'indirizzo pubblico della pagina.
+
+Nota:
+Il link allo Statuto è impostato sul file Google Drive fornito.
+Per vedere chi ne chiede l'accesso, il file deve restare con "Accesso generale: Limitato".
