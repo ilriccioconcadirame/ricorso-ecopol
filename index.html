@@ -1,14 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Comitato Il Riccio — Sostieni il ricorso ECOPOL</title>
-  <meta name="description" content="Raccolta fondi del Comitato Il Riccio per sostenere il ricorso contro l'autorizzazione ECOPOL a Rovigo.">
-  <meta property="og:title" content="Sostieni il ricorso contro l'autorizzazione ECOPOL">
-  <meta property="og:description" content="Aiuta il Comitato Il Riccio a sostenere le spese legali e tecniche del ricorso.">
-  <meta property="og:type" content="website">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Comitato Il Riccio — Sostieni il ricorso ECOPOL</title>
+<meta content="Raccolta fondi del Comitato Il Riccio per sostenere il ricorso contro l'autorizzazione ECOPOL a Rovigo." name="description"/>
+<meta content="Sostieni il ricorso contro l'autorizzazione ECOPOL" property="og:title"/>
+<meta content="Aiuta il Comitato Il Riccio a sostenere le spese legali e tecniche del ricorso." property="og:description"/>
+<meta content="website" property="og:type"/>
+<style>
     :root{
       --green:#31533b;
       --green-dark:#203b2a;
@@ -151,6 +152,7 @@
       .kpi+.kpi{border-left:0;border-top:1px solid var(--line)}
       .docs-grid{grid-template-columns:1fr}
       .updates-grid{grid-template-columns:1fr}
+      .goal-grid,.totals-strip{grid-template-columns:1fr}
       .topnav{display:none}
       .brand small{display:none}
       section{padding:55px 0}
@@ -162,6 +164,7 @@
     }
     .official-source p{margin:.25rem 0 0;color:#dce7de}
     .official-source .btn-primary{background:white;color:var(--green-dark);white-space:nowrap}
+    .official-source .btn-ghost{color:white;border-color:rgba(255,255,255,.5);white-space:nowrap}
     .doc-groups{display:grid;gap:12px;margin-top:24px}
     .doc-group{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .doc-group summary{
@@ -183,208 +186,285 @@
     }
     .update-card p:last-child{margin-bottom:0}
 
-  </style>
+  
+    .goals-head{
+      display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:28px;flex-wrap:wrap
+    }
+    .goals-note{max-width:420px;color:var(--muted);font-size:.95rem}
+    .goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .goal-card{
+      border:1px solid var(--line);border-radius:22px;background:white;padding:26px;
+      display:flex;flex-direction:column;min-height:100%
+    }
+    .goal-card.optional{background:var(--green-soft)}
+    .goal-kicker{
+      font-size:.76rem;text-transform:uppercase;letter-spacing:.12em;font-weight:850;color:var(--green)
+    }
+    .goal-card h3{margin:.55rem 0 .8rem}
+    .goal-amount{
+      font-size:clamp(2rem,4vw,3rem);line-height:1;font-weight:900;color:var(--green-dark);
+      letter-spacing:-.04em;margin:12px 0 8px
+    }
+    .goal-sub{color:var(--muted);font-size:.92rem}
+    .goal-meta{
+      margin-top:auto;padding-top:18px;border-top:1px solid var(--line);font-size:.92rem
+    }
+    .goal-meta strong{display:block;color:var(--ink);margin-bottom:3px}
+    .totals-strip{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .total-box{border-radius:18px;padding:22px;background:var(--green-dark);color:white}
+    .total-box.alt{background:var(--green)}
+    .total-box span{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;opacity:.78}
+    .total-box strong{display:block;font-size:clamp(1.65rem,3vw,2.35rem);margin-top:4px}
+    .goal-disclaimer{margin-top:14px;color:var(--muted);font-size:.87rem}
+
+  
+
+    .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .event-card{border:1px solid var(--line);border-radius:22px;padding:25px;background:white;position:relative;overflow:hidden}
+    .event-card.next{border:2px solid var(--green);box-shadow:0 14px 35px rgba(32,59,42,.10)}
+    .event-card.past{background:#f7f7f3}
+    .event-status{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--green-soft);color:var(--green-dark);font-size:.75rem;font-weight:850;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+    .event-card.next .event-status{background:var(--green);color:white}
+    .event-date{font-weight:850;color:var(--green);margin-bottom:6px}
+    .event-note{color:var(--muted);font-size:.94rem}
+    .social-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+    .social-btn{display:grid;grid-template-columns:46px 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center;text-decoration:none;border:1px solid var(--line);background:white;border-radius:18px;padding:17px 18px}
+    .social-btn span{grid-row:1/3;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--green-dark);color:white;font-size:1.45rem;font-weight:900}
+    .social-btn b{font-size:1.05rem}.social-btn small{color:var(--muted)}
+    .social-feed-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:start}
+    .social-window{background:white;border:1px solid var(--line);border-radius:20px;padding:16px;min-width:0;overflow:hidden}
+    .social-window.tiktok-window{grid-column:1/-1}
+    .social-window-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;padding:0 3px}
+    .social-window-head a{font-size:.88rem;color:var(--green);font-weight:800;text-decoration:none}
+    .social-note{color:var(--muted);font-size:.9rem;margin-top:14px}
+    @media(max-width:900px){.events-grid,.social-buttons,.social-feed-grid{grid-template-columns:1fr}.social-window.tiktok-window{grid-column:auto}}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap">
-      <div class="brand">
-        <img src="logo-il-riccio.png" alt="Logo Comitato Il Riccio">
-        <div>Comitato Il Riccio<small>Rovigo</small></div>
-      </div>
-      <nav class="topnav" aria-label="Navigazione">
-        <a href="#cosa">Cosa è stato autorizzato</a>
-        <a href="#ricorso">Il ricorso</a>
-        <a href="#sostieni">Sostieni</a>
-        <a href="#documenti">Documenti</a>
-        <a href="#aggiornamenti">Aggiornamenti</a>
-      </nav>
-    </div>
-  </header>
+<header class="topbar">
+<div class="wrap">
+<div class="brand">
+<img alt="Logo Comitato Il Riccio" src="logo-il-riccio.png"/>
+<div>Comitato Il Riccio<small>Rovigo</small></div>
+</div>
+<nav aria-label="Navigazione" class="topnav"><a href="#cosa">Cosa è stato autorizzato</a><a href="#ricorso">Il ricorso</a><a href="#sostieni">Sostieni</a><a href="#documenti">Documenti</a><a href="#incontri">Incontri</a><a href="#seguici">Seguici</a><a href="#aggiornamenti">Aggiornamenti</a></nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<div class="eyebrow">Raccolta fondi · Comitato Il Riccio</div>
+<h1>Sostieni il ricorso contro l’autorizzazione ECOPOL</h1>
+<p class="lead">Una raccolta fondi per sostenere le spese legali e tecniche necessarie a sottoporre il provvedimento autorizzativo al vaglio della giustizia amministrativa.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="#sostieni">Sostieni il ricorso</a>
+<button class="btn btn-ghost" onclick="shareWhatsApp()" type="button">Condividi su WhatsApp</button>
+</div>
+</div>
+<aside class="hero-card">
+<b>Una pagina pubblica, documentata e trasparente.</b>
+<p>Qui raccogliamo le informazioni essenziali sull’autorizzazione, i riferimenti per contribuire e i documenti pubblici disponibili.</p>
+</aside>
+</div>
+</section>
+<div aria-label="Dati principali" class="wrap kpis">
+<div class="kpi-grid">
+<div class="kpi"><strong>45.000</strong><span>tonnellate/anno</span></div>
+<div class="kpi"><strong>240</strong><span>tonnellate/giorno</span></div>
+<div class="kpi"><strong>20–22</strong><span>tonnellate/ora</span></div>
+</div>
+</div>
+<section id="cosa">
+<div class="wrap">
+<div class="section-tag">Il provvedimento</div>
+<h2>Cosa è stato autorizzato</h2>
+<p class="section-lead">Il 31 agosto 2026 la Provincia di Rovigo ha rilasciato il Provvedimento Autorizzatorio Unico relativo all’ampliamento dell’impianto ECOPOL di via G. Amendola 122–124 a Rovigo.</p>
+<div class="two-col">
+<div class="card">
+<h3>Una nuova linea di trattamento</h3>
+<p>L’autorizzazione comprende una nuova attività di recupero di rifiuti pericolosi e non pericolosi mediante <strong>desorbimento termico</strong>, tra cui terre contaminate e fanghi.</p>
+</div>
+<div class="card">
+<h3>Non solo stoccaggio</h3>
+<p>Il progetto introduce quindi una linea di trattamento dei rifiuti con una capacità autorizzata fino a <strong>45.000 tonnellate l’anno</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="soft" id="ricorso">
+<div class="wrap">
+<div class="section-tag">Il ricorso</div>
+<h2>Perché il Comitato ricorre</h2>
+<p class="section-lead">Il Comitato Il Riccio intende chiedere al Tribunale Amministrativo Regionale di verificare il provvedimento con cui è stato autorizzato l’ampliamento dell’impianto ECOPOL.</p>
+<div class="two-col">
+<div class="card">
+<h3>Verifica degli atti</h3>
+<p>Il ricorso serve a sottoporre gli atti e il procedimento alla valutazione della giustizia amministrativa. I motivi giuridici saranno definiti e presentati dai professionisti incaricati nelle sedi competenti.</p>
+</div>
+<div class="card">
+<h3>Trasparenza e informazione</h3>
+<p>Il Comitato rende disponibili i documenti pubblici del procedimento e gli aggiornamenti sull’azione, così che cittadini e interessati possano consultare direttamente le fonti.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sostieni">
+<div class="wrap">
+<div class="donation">
+<div>
+<div class="section-tag">Raccolta fondi</div>
+<h2>Aiutaci a sostenere il ricorso</h2>
+<p>Un’azione legale comporta spese per assistenza legale, eventuali consulenze tecniche, contributi e attività connesse al procedimento. Ogni contributo può aiutarci a sostenere questo percorso.</p>
+</div>
+<div class="bank">
+<div class="bank-label">Intestazione</div>
+<div class="bank-value">Il Riccio</div>
+<div class="bank-label">Codice fiscale</div>
+<div class="bank-value">C.F. 93046520297</div>
+<div class="bank-label">IBAN</div>
+<div class="bank-value iban" id="iban"><span>IT22</span> <span>D030</span> <span>6909</span> <span>6061</span> <span>0000</span> <span>0419</span> <span>007</span></div>
+<div class="bank-label">Causale consigliata</div>
+<div class="bank-value">ricorso Ecopol</div>
+<div class="cta-row">
+<button class="btn btn-primary" onclick="copyIban()" type="button">Copia l’IBAN</button>
+<button class="btn btn-ghost" onclick="shareWhatsApp()" type="button">Condividi su WhatsApp</button>
+</div>
+<div class="notice">Il Comitato darà conto pubblicamente dell’utilizzo delle somme raccolte e degli sviluppi dell’azione.</div>
+</div>
+</div>
+</div>
+</section>
 
-  <main>
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow">Raccolta fondi · Comitato Il Riccio</div>
-          <h1>Sostieni il ricorso contro l’autorizzazione ECOPOL</h1>
-          <p class="lead">Una raccolta fondi per sostenere le spese legali e tecniche necessarie a sottoporre il provvedimento autorizzativo al vaglio della giustizia amministrativa.</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#sostieni">Sostieni il ricorso</a>
-            <button class="btn btn-ghost" type="button" onclick="shareWhatsApp()">Condividi su WhatsApp</button>
-          </div>
-        </div>
-        <aside class="hero-card">
-          <b>Una pagina pubblica, documentata e trasparente.</b>
-          <p>Qui raccogliamo le informazioni essenziali sull’autorizzazione, i riferimenti per contribuire e i documenti pubblici disponibili.</p>
-        </aside>
-      </div>
-    </section>
-
-    <div class="wrap kpis" aria-label="Dati principali">
-      <div class="kpi-grid">
-        <div class="kpi"><strong>45.000</strong><span>tonnellate/anno</span></div>
-        <div class="kpi"><strong>240</strong><span>tonnellate/giorno</span></div>
-        <div class="kpi"><strong>20–22</strong><span>tonnellate/ora</span></div>
-      </div>
-    </div>
-
-    <section id="cosa">
-      <div class="wrap">
-        <div class="section-tag">Il provvedimento</div>
-        <h2>Cosa è stato autorizzato</h2>
-        <p class="section-lead">Il 31 agosto 2026 la Provincia di Rovigo ha rilasciato il Provvedimento Autorizzatorio Unico relativo all’ampliamento dell’impianto ECOPOL di via G. Amendola 122–124 a Rovigo.</p>
-        <div class="two-col">
-          <div class="card">
-            <h3>Una nuova linea di trattamento</h3>
-            <p>L’autorizzazione comprende una nuova attività di recupero di rifiuti pericolosi e non pericolosi mediante <strong>desorbimento termico</strong>, tra cui terre contaminate e fanghi.</p>
-          </div>
-          <div class="card">
-            <h3>Non solo stoccaggio</h3>
-            <p>Il progetto introduce quindi una linea di trattamento dei rifiuti con una capacità autorizzata fino a <strong>45.000 tonnellate l’anno</strong>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="soft" id="ricorso">
-      <div class="wrap">
-        <div class="section-tag">Il ricorso</div>
-        <h2>Perché questa raccolta fondi</h2>
-        <p class="section-lead">Il Comitato Il Riccio intende sottoporre il provvedimento autorizzativo al vaglio della giustizia amministrativa.</p>
-        <div class="two-col">
-          <div class="card">
-            <h3>Assistenza legale e tecnica</h3>
-            <p>La raccolta fondi è destinata a sostenere le spese connesse all’azione legale, comprese l’assistenza degli avvocati, eventuali consulenze tecniche, contributi e altri costi del procedimento.</p>
-          </div>
-          <div class="card">
-            <h3>Nessuna anticipazione dei motivi</h3>
-            <p>I motivi e le valutazioni alla base dell’azione saranno definiti dai professionisti incaricati e presentati nelle sedi competenti. Questa pagina ha esclusivamente finalità informative e di raccolta fondi.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="sostieni">
-      <div class="wrap">
-        <div class="donation">
-          <div>
-            <div class="section-tag">Raccolta fondi</div>
-            <h2>Aiutaci a sostenere il ricorso</h2>
-            <p>Un’azione legale comporta spese per assistenza legale, eventuali consulenze tecniche, contributi e attività connesse al procedimento. Ogni contributo può aiutarci a sostenere questo percorso.</p>
-          </div>
-          <div class="bank">
-            <div class="bank-label">Intestazione</div>
-            <div class="bank-value">Il Riccio</div>
-            <div class="bank-label">Codice fiscale</div>
-            <div class="bank-value">C.F. 93046520297</div>
-            <div class="bank-label">IBAN</div>
-            <div class="bank-value iban" id="iban"><span>IT22</span> <span>D030</span> <span>6909</span> <span>6061</span> <span>0000</span> <span>0419</span> <span>007</span></div>
-            <div class="bank-label">Causale consigliata</div>
-            <div class="bank-value">Contributo ricorso ECOPOL</div>
-            <div class="cta-row">
-              <button class="btn btn-primary" type="button" onclick="copyIban()">Copia l’IBAN</button>
-              <button class="btn btn-ghost" type="button" onclick="shareWhatsApp()">Condividi su WhatsApp</button>
-            </div>
-            <div class="notice">Il Comitato darà conto pubblicamente dell’utilizzo delle somme raccolte e degli sviluppi dell’azione.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="soft" id="documenti">
-      <div class="wrap">
-        <div class="section-tag">Trasparenza</div>
-        <h2>Documenti e fonti</h2>
-        <p class="section-lead">Nella pratica ufficiale della Provincia di Rovigo sono pubblicati il provvedimento e gli atti del procedimento. Qui ne riportiamo l’elenco per facilitarne la consultazione, senza commenti o valutazioni.</p>
-
-        <div class="official-source">
-          <div>
-            <strong>Pratica ufficiale della Provincia di Rovigo</strong>
-            <p>Pratica n. 52560 — consulta gli atti e gli allegati pubblicati dall’ente.</p>
-          </div>
-          <a class="btn btn-primary" target="_blank" rel="noopener"
-             href="https://alboonline.provincia.rovigo.it/albopretorio/AlboPretorio?servizio=dettaglio&idPratica=52560&">Consulta i documenti ufficiali ↗</a>
-        </div>
-
-        <div class="doc-groups">
-          <details class="doc-group">
-          <summary>Provvedimento e istruttoria<span>2 documenti</span></summary>
-          <div class="doc-names"><ul><li>Provvedimento dirigenziale n. 49/2026</li><li>Relazione istruttoria PAU</li></ul></div>
-        </details><details class="doc-group">
-          <summary>Verbali<span>5 documenti</span></summary>
-          <div class="doc-names"><ul><li>Verbale Comitato VIA – 12 novembre 2025</li><li>Verbale Comitato VIA – 1 luglio 2026</li><li>Verbale Comitato VIA – 6 agosto 2026</li><li>Verbale Conferenza di Servizi – 22 luglio 2026</li><li>Verbale Conferenza di Servizi – 6 agosto 2026</li></ul></div>
-        </details><details class="doc-group">
-          <summary>Pareri degli enti<span>9 documenti</span></summary>
-          <div class="doc-names"><ul><li>Parere AULSS 5</li><li>Parere ARPAV – Piano di monitoraggio e controllo</li><li>Parere ARPAV – End of Waste</li><li>Parere Veneto Strade</li><li>Parere Regione Veneto – Direzione Ambiente</li><li>Parere Regione Veneto – Genio Civile</li><li>Parere Vigili del Fuoco</li><li>Parere SABAP</li><li>Parere prot. 7004/2026</li></ul></div>
-        </details><details class="doc-group">
-          <summary>Osservazioni e integrazioni<span>3 documenti</span></summary>
-          <div class="doc-names"><ul><li>Osservazioni – luglio 2026</li><li>Risposta alla richiesta di integrazioni</li><li>Documento CER / SIA rev. 02</li></ul></div>
-        </details><details class="doc-group">
-          <summary>Piani, schede ed elaborati tecnici<span>12 documenti</span></summary>
-          <div class="doc-names"><ul><li>Piano di monitoraggio ambientale – rev. 2</li><li>Piano di monitoraggio e controllo – All. E11</li><li>Scheda A – versione 2</li><li>Relazione di omologa</li><li>Tavola viabilità – rev. 01, 3 agosto 2026</li><li>Tavola 1 – Inquadramento territoriale</li><li>Tavola 3 – Layout impianto</li><li>Tavola 4 – Reti idriche</li><li>Tavola 7 – Impianto di aspirazione</li><li>B2 – Stato di fatto, piante</li><li>B4 – Progetto, sistemazioni esterne</li><li>B8 – Progetto, comparativa</li></ul></div>
-        </details>
-        </div>
-      </div>
-    </section>
-
-    <section id="aggiornamenti">
-      <div class="wrap">
-        <div class="section-tag">Aggiornamenti</div>
-        <h2>Aggiornamenti sul ricorso</h2>
-        <p class="section-lead">In questa sezione saranno pubblicati gli sviluppi della raccolta fondi e del percorso legato al ricorso, con comunicazioni essenziali e date di riferimento.</p>
-
-        <div class="updates-grid">
-          <div class="update-card">
-            <div class="update-date">31 agosto 2026</div>
-            <h3>Pubblicazione del provvedimento</h3>
-            <p>La Provincia di Rovigo ha pubblicato il provvedimento autorizzativo relativo all’ampliamento dell’impianto ECOPOL.</p>
-          </div>
-
-          <div class="update-card">
-            <div class="update-date">Settembre 2026</div>
-            <h3>Avvio della raccolta fondi</h3>
-            <p>Il Comitato Il Riccio ha attivato la raccolta fondi per sostenere le spese legali e tecniche connesse all’azione davanti alla giustizia amministrativa.</p>
-          </div>
-
-          <div class="update-card">
-            <div class="update-date">Prossimi aggiornamenti</div>
-            <h3>Questa sezione resterà aggiornata</h3>
-            <p>Qui saranno inserite le comunicazioni successive, in modo sintetico e verificabile, man mano che il percorso andrà avanti.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="comitato">
-      <div class="wrap about">
-        <div class="about-logo">
-          <img src="logo-il-riccio.png" alt="Comitato Il Riccio">
-        </div>
-        <div>
-          <div class="section-tag">Il Comitato</div>
-          <h2>Conosci Il Riccio</h2>
-          <p class="section-lead">Puoi iscriverti al Comitato o consultare liberamente lo Statuto del Comitato.</p>
-          <div class="cta-row buttons-dark">
-            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://forms.gle/2BRJAU3yf43WwHwS8">Iscriviti al Comitato</a>
-            <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1fTLsAS_jCshvrhiQN4vjZvkyt_RvQPm1/view?usp=sharing">Statuto Comitato</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      <div><strong>Comitato Il Riccio</strong><br><small>Rovigo · C.F. 93046520297</small></div>
-      <small>Pagina informativa sulla raccolta fondi per il ricorso ECOPOL.</small>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast">IBAN copiato</div>
-
-  <script>
+<section class="soft" id="documenti">
+<div class="wrap">
+<div class="section-tag">Trasparenza</div>
+<h2>Documenti e fonti</h2>
+<p class="section-lead">Per evitare link temporanei o non più raggiungibili, l’archivio Drive del Comitato è il punto di accesso stabile alle copie dei documenti. Manteniamo anche il collegamento alla pagina ufficiale della Provincia di Rovigo dedicata al procedimento ECOPOL.</p>
+<div class="official-source">
+<div>
+<strong>Archivio pubblico del procedimento</strong>
+<p>Le copie dei documenti pubblicati nell’ambito della pratica sono conservate nell’archivio Drive del Comitato. La pagina ECOPOL della Provincia resta indicata come fonte istituzionale.</p>
+</div>
+<div class="cta-row">
+<a class="btn btn-primary" href="https://drive.google.com/drive/folders/1uejqQNtE59FaA_JsC4q2gnaAyDIMng1J?usp=sharing" rel="noopener" target="_blank">Apri l’archivio Drive ↗</a>
+<a class="btn btn-ghost" href="https://www.provincia.rovigo.it/servizi-info/ecopol" rel="noopener" target="_blank">Pagina ECOPOL – Provincia ↗</a>
+</div>
+</div>
+<div class="doc-groups">
+<details class="doc-group">
+<summary>Provvedimento e istruttoria<span>2 documenti</span></summary>
+<div class="doc-names"><ul><li>Provvedimento dirigenziale n. 49/2026</li><li>Relazione istruttoria PAU</li></ul></div>
+</details><details class="doc-group">
+<summary>Verbali<span>5 documenti</span></summary>
+<div class="doc-names"><ul><li>Verbale Comitato VIA – 12 novembre 2025</li><li>Verbale Comitato VIA – 1 luglio 2026</li><li>Verbale Comitato VIA – 6 agosto 2026</li><li>Verbale Conferenza di Servizi – 22 luglio 2026</li><li>Verbale Conferenza di Servizi – 6 agosto 2026</li></ul></div>
+</details><details class="doc-group">
+<summary>Pareri degli enti<span>9 documenti</span></summary>
+<div class="doc-names"><ul><li>Parere AULSS 5</li><li>Parere ARPAV – Piano di monitoraggio e controllo</li><li>Parere ARPAV – End of Waste</li><li>Parere Veneto Strade</li><li>Parere Regione Veneto – Direzione Ambiente</li><li>Parere Regione Veneto – Genio Civile</li><li>Parere Vigili del Fuoco</li><li>Parere SABAP</li><li>Parere prot. 7004/2026</li></ul></div>
+</details><details class="doc-group">
+<summary>Osservazioni e integrazioni<span>3 documenti</span></summary>
+<div class="doc-names"><ul><li>Osservazioni – luglio 2026</li><li>Risposta alla richiesta di integrazioni</li><li>Documento CER / SIA rev. 02</li></ul></div>
+</details><details class="doc-group">
+<summary>Piani, schede ed elaborati tecnici<span>12 documenti</span></summary>
+<div class="doc-names"><ul><li>Piano di monitoraggio ambientale – rev. 2</li><li>Piano di monitoraggio e controllo – All. E11</li><li>Scheda A – versione 2</li><li>Relazione di omologa</li><li>Tavola viabilità – rev. 01, 3 agosto 2026</li><li>Tavola 1 – Inquadramento territoriale</li><li>Tavola 3 – Layout impianto</li><li>Tavola 4 – Reti idriche</li><li>Tavola 7 – Impianto di aspirazione</li><li>B2 – Stato di fatto, piante</li><li>B4 – Progetto, sistemazioni esterne</li><li>B8 – Progetto, comparativa</li></ul></div>
+</details>
+</div>
+</div>
+</section>
+<section id="incontri">
+<div class="wrap">
+<div class="section-tag">Incontri pubblici</div>
+<h2>Incontriamoci e parliamone</h2>
+<p class="section-lead">Gli appuntamenti del Comitato Il Riccio per informare i cittadini sul procedimento ECOPOL, sul ricorso e sulla raccolta fondi.</p>
+<div class="events-grid">
+<article class="event-card past">
+<div class="event-status">Incontro svolto</div>
+<div class="event-date">25 settembre 2026 · ore 20.30</div>
+<h3>Lusia</h3>
+<p><strong>Biblioteca comunale</strong><br/>presso la scuola elementare</p>
+<p class="event-note">Incontro pubblico dedicato al ricorso ECOPOL e all’informazione dei cittadini.</p>
+</article>
+<article class="event-card next">
+<div class="event-status">Prossimo incontro</div>
+<div class="event-date">30 settembre 2026 · ore 21.00</div>
+<h3>Roverdicrè · Rovigo</h3>
+<p><strong>Azienda Galiazzo</strong><br/>via V. Bellini, 56</p>
+<p class="event-note">Un incontro pubblico aperto ai cittadini per parlare del procedimento ECOPOL, del ricorso e della raccolta fondi.</p>
+</article>
+<article class="event-card upcoming">
+<div class="event-status">Calendario in aggiornamento</div>
+<div class="event-date">Prossimi appuntamenti</div>
+<h3>Altri incontri pubblici</h3>
+<p>Il ciclo proseguirà con altri appuntamenti. Le prossime date e sedi saranno pubblicate qui e sui canali social del Comitato.</p>
+</article>
+</div>
+</div>
+</section><section id="aggiornamenti">
+<div class="wrap">
+<div class="section-tag">Aggiornamenti</div>
+<h2>Aggiornamenti sul ricorso</h2>
+<p class="section-lead">In questa sezione saranno pubblicati gli sviluppi della raccolta fondi e del percorso legato al ricorso, con comunicazioni essenziali e date di riferimento.</p>
+<div class="updates-grid">
+<div class="update-card"><div class="update-date">31 agosto 2026</div><h3>Pubblicazione del provvedimento</h3><p>La Provincia di Rovigo ha pubblicato il provvedimento autorizzativo relativo all’ampliamento dell’impianto ECOPOL.</p></div>
+<div class="update-card"><div class="update-date">Settembre 2026</div><h3>Avvio della raccolta fondi</h3><p>Il Comitato Il Riccio ha attivato la raccolta fondi per sostenere le spese legali e tecniche connesse al ricorso.</p></div>
+<div class="update-card"><div class="update-date">Settembre 2026</div><h3>Archivio documenti disponibile</h3><p>È disponibile un archivio pubblico su Google Drive con le copie dei documenti del procedimento raccolti dal Comitato.</p></div>
+<div class="update-card"><div class="update-date">25 settembre 2026</div><h3>Incontro pubblico a Lusia</h3><p>Si è svolto l’incontro pubblico dedicato al ricorso ECOPOL e alla raccolta fondi.</p></div>
+<div class="update-card"><div class="update-date">30 settembre 2026</div><h3>Prossimo incontro a Roverdicrè</h3><p>Appuntamento alle ore 21.00 presso Azienda Galiazzo, via V. Bellini, 56.</p></div>
+<div class="update-card"><div class="update-date">Prossimi aggiornamenti</div><h3>Questa sezione resterà aggiornata</h3><p>Pubblicheremo qui le comunicazioni successive, in modo sintetico e verificabile.</p></div>
+</div>
+</div>
+</section>
+<section class="soft" id="seguici">
+<div class="wrap">
+<div class="section-tag">Seguici</div>
+<h2>Il Riccio sui social</h2>
+<p class="section-lead">Segui i canali del Comitato per ricevere gli aggiornamenti sugli incontri, sul ricorso e sui documenti pubblicati.</p>
+<div class="social-buttons">
+<a class="social-btn fb" href="https://www.facebook.com/1352312717963818" rel="noopener" target="_blank"><span>f</span><b>Facebook</b><small>Comitato Il Riccio</small></a>
+<a class="social-btn ig" href="https://www.instagram.com/ilricciorovigo/" rel="noopener" target="_blank"><span>◎</span><b>Instagram</b><small>@ilricciorovigo</small></a>
+<a class="social-btn tt" href="https://www.tiktok.com/@ilricciorovigo" rel="noopener" target="_blank"><span>♪</span><b>TikTok</b><small>@ilricciorovigo</small></a>
+</div>
+<div class="social-feed-grid">
+<div class="social-window">
+<div class="social-window-head"><strong>Facebook</strong><a href="https://www.facebook.com/1352312717963818" rel="noopener" target="_blank">Apri pagina ↗</a></div>
+<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" frameborder="0" height="560" scrolling="no" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F1352312717963818&amp;tabs=timeline&amp;width=500&amp;height=560&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=false" style="border:none;overflow:hidden;width:100%" title="Facebook Comitato Il Riccio" width="500"></iframe>
+</div>
+<div class="social-window">
+<div class="social-window-head"><strong>Instagram</strong><a href="https://www.instagram.com/ilricciorovigo/" rel="noopener" target="_blank">Segui @ilricciorovigo ↗</a></div>
+<blockquote class="instagram-media" data-instgrm-captioned="" data-instgrm-permalink="https://www.instagram.com/p/Ddwjc3ZG_GF/" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:12px;margin:0;max-width:540px;min-width:280px;width:100%"><a href="https://www.instagram.com/p/Ddwjc3ZG_GF/" rel="noopener" target="_blank">Vedi l’ultimo appuntamento su Instagram</a></blockquote>
+</div>
+<div class="social-window tiktok-window">
+<div class="social-window-head"><strong>TikTok</strong><a href="https://www.tiktok.com/@ilricciorovigo" rel="noopener" target="_blank">Segui @ilricciorovigo ↗</a></div>
+<blockquote cite="https://www.tiktok.com/@ilricciorovigo" class="tiktok-embed" data-embed-type="creator" data-unique-id="ilricciorovigo" style="max-width:780px;min-width:288px"><section><a href="https://www.tiktok.com/@ilricciorovigo?refer=creator_embed" target="_blank">@ilricciorovigo</a></section></blockquote>
+</div>
+</div>
+<p class="social-note">Se il browser blocca i contenuti incorporati dei social, usa i pulsanti “Segui” qui sopra per aprire direttamente i profili.</p>
+</div>
+</section><section id="comitato">
+<div class="wrap about">
+<div class="about-logo">
+<img alt="Comitato Il Riccio" src="logo-il-riccio.png"/>
+</div>
+<div>
+<div class="section-tag">Il Comitato</div>
+<h2>Conosci Il Riccio</h2>
+<p class="section-lead">Puoi iscriverti al Comitato o consultare liberamente lo Statuto del Comitato.</p>
+<div class="cta-row buttons-dark">
+<a class="btn btn-primary" href="https://forms.gle/2BRJAU3yf43WwHwS8" rel="noopener" target="_blank">Iscriviti al Comitato</a>
+<a class="btn btn-ghost" href="https://drive.google.com/file/d/1fTLsAS_jCshvrhiQN4vjZvkyt_RvQPm1/view?usp=sharing" rel="noopener" target="_blank">Statuto Comitato</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">
+<div><strong>Comitato Il Riccio</strong><br/><small>Rovigo · C.F. 93046520297</small></div>
+<small>Pagina informativa sulla raccolta fondi per il ricorso ECOPOL.</small>
+</div>
+</footer>
+<div class="toast" id="toast">IBAN copiato</div>
+<script>
     const IBAN = "IT22D0306909606100000419007";
 
     function currentShareUrl(){
@@ -400,7 +480,7 @@ Stiamo raccogliendo fondi per sostenere le spese legali e tecniche dell’azione
 
 Intestazione: Il Riccio
 IBAN: ${IBAN}
-Causale: Contributo ricorso ECOPOL` +
+Causale: ricorso Ecopol` +
 (url ? `
 
 Tutte le informazioni:
@@ -425,5 +505,5 @@ ${url}` : "");
       setTimeout(()=>toast.classList.remove("show"), 1800);
     }
   </script>
-</body>
+<script async_="True" src="https://www.instagram.com/embed.js"></script><script async_="True" src="https://www.tiktok.com/embed.js"></script></body>
 </html>
