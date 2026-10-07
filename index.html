@@ -238,6 +238,12 @@
     .social-window-head a{font-size:.88rem;color:var(--green);font-weight:800;text-decoration:none}
     .social-note{color:var(--muted);font-size:.9rem;margin-top:14px}
     @media(max-width:900px){.events-grid,.social-buttons,.social-feed-grid{grid-template-columns:1fr}.social-window.tiktok-window{grid-column:auto}}
+    .bike-event{grid-column:1/-1;display:grid;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:28px;align-items:start}
+    .bike-poster img{display:block;width:100%;height:auto;border-radius:12px}
+    .bike-register{display:inline-block;background:var(--green);color:white;font-weight:800;padding:13px 18px;border-radius:12px;text-decoration:none}
+    .bike-register:hover{background:var(--green-dark)}
+    .bike-register:focus-visible{outline:3px solid var(--green);outline-offset:4px}
+    @media(max-width:900px){.bike-event{grid-template-columns:1fr}.bike-poster{max-width:400px}}
 </style>
 </head>
 <body>
@@ -398,16 +404,16 @@
 <p><strong>Ex scuola primaria</strong><br/>via Bassa, 1</p>
 <p class="event-note">Incontro pubblico aperto ai cittadini per sostenere il ricorso contro l’impianto ECOPOL.</p>
 </article>
-<article class="event-card next">
-<div class="event-status">Prossimo incontro</div>
+<article class="event-card past">
+<div class="event-status">Incontro svolto</div>
 <div class="event-date">6 ottobre 2026 · ore 18.30</div>
 <h3>Rovigo</h3>
 <p><strong>Scuola primaria Duca D’Aosta</strong><br/>via Galvani, 20</p>
 <p class="event-note">Incontro pubblico aperto ai cittadini per sostenere il ricorso contro l’impianto ECOPOL.</p>
 </article>
-<article class="event-card upcoming">
-<div class="event-status">In programma</div>
-<div class="event-date">10 ottobre 2026 · ore 10.30</div>
+<article class="event-card next">
+<div class="event-status">Prossimo incontro</div>
+<div class="event-date">Sabato 10 ottobre 2026 · ore 10.30</div>
 <h3>Granzette · Rovigo</h3>
 <p><strong>Ex scuola primaria</strong><br/>via Ramazzina, 2</p>
 <p class="event-note">Incontro pubblico aperto ai cittadini per sostenere il ricorso contro l’impianto ECOPOL.</p>
@@ -419,11 +425,24 @@
 <p><strong>Teatro di Costa di Rovigo</strong></p>
 <p class="event-note">Incontro pubblico dedicato al ricorso ECOPOL.</p>
 </article>
-<article class="event-card upcoming">
-<div class="event-status">In programma</div>
-<div class="event-date">Domenica 18 ottobre 2026</div>
-<h3>Biciclettata</h3>
-<p class="event-note">A breve tutte le informazioni.</p>
+<article class="event-card upcoming bike-event" id="biciclettata">
+<a class="bike-poster" href="biciclettata-18-ottobre-2026.jpg" target="_blank" rel="noopener"><img src="biciclettata-18-ottobre-2026.jpg" alt="Locandina della biciclettata del 18 ottobre 2026, Comitato Il Riccio in collaborazione con FIAB Rovigo" loading="lazy" width="4675" height="5842"/></a>
+<div>
+<div class="event-status">Iscrizioni aperte</div>
+<div class="event-date">Domenica 18 ottobre 2026 · ritrovo ore 8.30</div>
+<h3>Biciclettata a sostegno del ricorso ECOPOL</h3>
+<p><strong>Comitato Il Riccio, in collaborazione con FIAB Rovigo.</strong><br/>Pedalata lenta, percorso adatto a tutti.</p>
+<p><strong>Ritrovo a Rovigo, Piazza Vittorio Emanuele II.</strong> Pedaleremo nelle località intorno alla sede di ECOPOL in via Amendola.</p>
+<ul>
+<li>Prima sosta: Barchesse Villa Grimani.</li>
+<li>Seconda sosta: Costa di Rovigo, con ristoro.</li>
+<li>Rientro a Rovigo alle ore 12.30 circa.</li>
+</ul>
+<p><strong>Quota: € 15,00 adulti · € 5,00 minori accompagnati.</strong><br/>Comprende assicurazione, ristoro e contributo al ricorso. Pagamento alla partenza.</p>
+<p><strong>Preiscrizione consigliata</strong> tramite il modulo oppure su WhatsApp al <a href="https://wa.me/393295471907">329 5471907</a>. Compilare il modulo per ogni partecipante; per i minorenni indicare l’adulto accompagnatore.</p>
+<p><a class="bike-register" href="https://docs.google.com/forms/d/e/1FAIpQLSf7fdfiM-4h6JTM9lCkt0t_n1h6LB4xR67qcPDpChQ0ZicNAQ/viewform" target="_blank" rel="noopener">Iscriviti alla biciclettata ↗</a></p>
+<p class="event-note">Portare una bicicletta perfettamente funzionante, un kit di assistenza e almeno mezzo litro d’acqua. Caschetto consigliato.</p>
+</div>
 </article>
 </div>
 </div>
@@ -439,7 +458,7 @@
 <div class="update-card"><div class="update-date">25 settembre 2026</div><h3>Incontro pubblico a Lusia</h3><p>Si è svolto l’incontro pubblico dedicato al ricorso ECOPOL e alla raccolta fondi.</p></div>
 <div class="update-card"><div class="update-date">30 settembre 2026</div><h3>Incontro pubblico a Roverdicrè</h3><p>Si è svolto l’incontro pubblico presso Azienda Galiazzo, con accesso da via Nogarazze 1.</p></div>
 <div class="update-card"><div class="update-date">3 ottobre 2026</div><h3>Incontro pubblico a Concadirame</h3><p>Si è svolto l’incontro pubblico presso l’ex scuola primaria, via Bassa 1.</p></div>
-<div class="update-card"><div class="update-date">6 ottobre 2026</div><h3>Incontro a Rovigo</h3><p>Appuntamento alle ore 18.30 presso la scuola primaria Duca D’Aosta, via Galvani 20.</p></div>
+<div class="update-card"><div class="update-date">6 ottobre 2026</div><h3>Incontro pubblico a Rovigo</h3><p>Si è svolto l’incontro pubblico presso la scuola primaria Duca D’Aosta, via Galvani 20.</p></div>
 <div class="update-card"><div class="update-date">10 ottobre 2026</div><h3>Incontro a Granzette</h3><p>Appuntamento alle ore 10.30 presso l’ex scuola primaria, via Ramazzina 2.</p></div>
 <div class="update-card"><div class="update-date">Prossimi aggiornamenti</div><h3>Questa sezione resterà aggiornata</h3><p>Pubblicheremo qui le comunicazioni successive, in modo sintetico e verificabile.</p></div>
 </div>
