@@ -1,0 +1,168 @@
+name: Update Meta posts
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: meta-social
+  cancel-in-progress: false
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read posts from Meta
+        env:
+          META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
+          META_API_VERSION: 'v26.0'
+          META_PAGE_ID: '1352312717963818'
+          META_INSTAGRAM_ID: '17841427409612539'
+        run: |
+          python - <<'PYCODE'
+          """Read public posts from the committee's authorized Meta accounts.
+          
+          Credentials are supplied by the runner, never written into the public output.
+          An incomplete or failed response leaves the existing feed untouched.
+          """
+          import json
+          import os
+          import sys
+          from html import escape
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.parse import urlencode, urlparse
+          
+          
+          def get_posts(account, fields, edge, token, version):
+              query = urlencode({"fields": fields, "limit": "6"})
+              url = f"https://graph.facebook.com/{version}/{account}/{edge}?{query}"
+              request = Request(url, headers={"Authorization": f"Bearer {token}"})
+              with urlopen(request, timeout=30) as response:
+                  body = json.load(response)
+              if not isinstance(body.get("data"), list):
+                  raise ValueError("Invalid feed response")
+              return body["data"]
+          
+          
+          def safe_link(value, network):
+              host = urlparse(value or "").hostname or ""
+              allowed = "facebook.com" if network == "facebook" else "instagram.com"
+              if urlparse(value or "").scheme != "https" or not (
+                  host == allowed or host.endswith("." + allowed)
+              ):
+                  raise ValueError("Invalid post link")
+              return value
+          
+          
+          def collect(token, version, page_id, instagram_id):
+              facebook = get_posts(
+                  page_id, "id,message,created_time,permalink_url",
+                  "published_posts", token, version
+              )
+              instagram = get_posts(
+                  instagram_id, "id,caption,timestamp,permalink,media_type",
+                  "media", token, version
+              )
+              posts = []
+              for network, rows in (("facebook", facebook), ("instagram", instagram)):
+                  for row in rows:
+                      posts.append({
+                          "network": network,
+                          "id": str(row["id"]),
+                          "text": row.get("message", row.get("caption", "")),
+                          "published_at": row.get("created_time", row.get("timestamp")),
+                          "url": safe_link(row.get("permalink_url", row.get("permalink")), network),
+                      })
+              return {
+                  "updated_at": datetime.now(timezone.utc).isoformat(),
+                  "posts": sorted(posts, key=lambda p: p["published_at"], reverse=True),
+              }
+          
+          
+          def main():
+              try:
+                  feed = collect(
+                      os.environ["META_PAGE_TOKEN"], os.environ["META_API_VERSION"],
+                      os.environ["META_PAGE_ID"], os.environ["META_INSTAGRAM_ID"],
+                  )
+                  index = Path("index.html")
+                  original = index.read_text()
+                  start, end = "<!-- META POSTS START -->", "<!-- META POSTS END -->"
+                  cards = []
+                  for post in feed["posts"]:
+                      date = datetime.fromisoformat(post["published_at"]).strftime("%d/%m/%Y")
+                      network = "Facebook" if post["network"] == "facebook" else "Instagram"
+                      text = post["text"] or "Scopri il contenuto sul nostro profilo."
+                      if len(text) > 550:
+                          text = text[:547].rsplit(" ", 1)[0] + "…"
+                      cards.append(
+                          '<article class="event-card"><div class="event-date">'
+                          f'{network} · {date}</div><p style="white-space:pre-line">'
+                          f'{escape(text)}</p><a class="btn btn-secondary" target="_blank" '
+                          f'rel="noopener" href="{escape(post["url"], quote=True)}">'
+                          f'Apri su {network} ↗</a></article>'
+                      )
+                  refreshed = datetime.fromisoformat(feed["updated_at"]).strftime("%d/%m/%Y %H:%M UTC")
+                  section = (start + '\n<div id="ultimi-post-social" style="margin-top:32px">'
+                             '<h3>Ultimi post dai nostri social</h3>'
+                             f'<p class="social-note">Ultimo aggiornamento: {refreshed}. '
+                             'I nuovi post Facebook e Instagram vengono controllati ogni ora.</p>'
+                             '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px">'
+                             + "\n".join(cards) + '</div></div>\n' + end)
+                  if start in original and end in original:
+                      before, rest = original.split(start, 1)
+                      _, after = rest.split(end, 1)
+                      rendered = before + section + after
+                  else:
+                      anchor = '<p class="social-note">Qui trovi una selezione degli aggiornamenti del Comitato. Per tutti i nuovi contenuti, visita i nostri profili social.</p>'
+                      if original.count(anchor) != 1:
+                          raise ValueError("Social section not found; no changes written")
+                      rendered = original.replace(anchor, section)
+                  destination = Path("social-posts.json")
+                  temporary = destination.with_suffix(".tmp")
+                  temporary.write_text(json.dumps(feed, ensure_ascii=False, indent=2) + "\n")
+                  temporary.replace(destination)
+                  index.write_text(rendered)
+                  print(f"Updated {len(feed['posts'])} posts.")
+              except Exception:
+                  # Do not log API responses, request URLs, headers or token values.
+                  print("Meta synchronization failed; existing feed preserved.", file=sys.stderr)
+                  return 1
+              return 0
+          
+          
+          if __name__ == "__main__":
+              sys.exit(main())
+          PYCODE
+      - name: Save updated public feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add social-posts.json index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Update public Meta posts"
+            git push
+          fi
+      - name: Prepare public site only
+        run: |
+          mkdir -p _site
+          cp index.html social-posts.json _site/
+          find . -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.css' -o -name '*.js' \) -exec cp {} _site/ \;
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
