@@ -30,9 +30,9 @@ jobs:
           META_PAGE_ID: '1352312717963818'
           META_INSTAGRAM_ID: '17841427409612539'
         run: |
-          python - <<'PYCODE'
+          python - <<'PYTHON'
           """Read public posts from the committee's authorized Meta accounts.
-          
+
           Credentials are supplied by the runner, never written into the public output.
           An incomplete or failed response leaves the existing feed untouched.
           """
@@ -44,8 +44,8 @@ jobs:
           from pathlib import Path
           from urllib.request import Request, urlopen
           from urllib.parse import urlencode, urlparse
-          
-          
+
+
           def get_posts(account, fields, edge, token, version):
               query = urlencode({"fields": fields, "limit": "6"})
               url = f"https://graph.facebook.com/{version}/{account}/{edge}?{query}"
@@ -55,8 +55,8 @@ jobs:
               if not isinstance(body.get("data"), list):
                   raise ValueError("Invalid feed response")
               return body["data"]
-          
-          
+
+
           def safe_link(value, network):
               host = urlparse(value or "").hostname or ""
               allowed = "facebook.com" if network == "facebook" else "instagram.com"
@@ -65,8 +65,8 @@ jobs:
               ):
                   raise ValueError("Invalid post link")
               return value
-          
-          
+
+
           def collect(token, version, page_id, instagram_id):
               facebook = get_posts(
                   page_id, "id,message,created_time,permalink_url",
@@ -90,8 +90,45 @@ jobs:
                   "updated_at": datetime.now(timezone.utc).isoformat(),
                   "posts": sorted(posts, key=lambda p: p["published_at"], reverse=True),
               }
-          
-          
+
+
+          def render_windows(feed):
+              latest = {}
+              for post in sorted(feed["posts"], key=lambda p: p["published_at"], reverse=True):
+                  latest.setdefault(post["network"], post)
+              # Never erase a working embed when either network returns an empty response.
+              if not all(network in latest for network in ("facebook", "instagram")):
+                  raise ValueError("Missing network posts")
+              fb = safe_link(latest["facebook"]["url"], "facebook")
+              ig = escape(safe_link(latest["instagram"]["url"], "instagram"), quote=True)
+              plugin = "video.php" if "/reel/" in fb or "/videos/" in fb else "post.php"
+              fb_embed = escape("https://www.facebook.com/plugins/" + plugin + "?" +
+                                urlencode({"href": fb, "width": "500", "show_text": "true"}), quote=True)
+              return f'''<!-- META POSTS START -->
+          <div id="ultimi-post-social" style="margin-top:28px">
+          <div class="social-feed-grid">
+          <div class="social-window">
+          <div class="social-window-head"><strong>Facebook</strong><a href="https://www.facebook.com/61594666865834" rel="noopener" target="_blank">Apri pagina ↗</a></div>
+          <iframe src="{fb_embed}" width="500" height="720" style="border:0;width:100%;max-width:500px;display:block;margin:auto" scrolling="yes" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" title="Ultimo post Facebook del Comitato Il Riccio" loading="lazy"></iframe>
+          <p class="social-note"><a href="{escape(fb, quote=True)}" target="_blank" rel="noopener">Apri questo post su Facebook ↗</a></p>
+          </div>
+          <div class="social-window">
+          <div class="social-window-head"><strong>Instagram</strong><a href="https://www.instagram.com/ilricciorovigo/" rel="noopener" target="_blank">Segui @ilricciorovigo ↗</a></div>
+          <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="{ig}" data-instgrm-version="14" style="background:#fff;border:0;border-radius:12px;margin:0;max-width:540px;min-width:0;width:100%"><a href="{ig}" rel="noopener" target="_blank">Guarda l’ultimo post su Instagram ↗</a></blockquote>
+          <p class="social-note"><a href="{ig}" target="_blank" rel="noopener">Apri questo post su Instagram ↗</a></p>
+          </div>
+          <div class="social-window tiktok-window">
+          <div class="social-window-head"><strong>TikTok</strong><a href="https://www.tiktok.com/@ilricciorovigo" rel="noopener" target="_blank">Segui @ilricciorovigo ↗</a></div>
+          <blockquote cite="https://www.tiktok.com/@ilricciorovigo" class="tiktok-embed" data-embed-type="creator" data-unique-id="ilricciorovigo" style="max-width:780px;min-width:0"><section><a href="https://www.tiktok.com/@ilricciorovigo?refer=creator_embed" target="_blank" rel="noopener">@ilricciorovigo</a></section></blockquote>
+          </div>
+          </div>
+          <p class="social-note">Foto, video e aggiornamenti dai nostri canali. Se una finestra non si carica, puoi aprire il contenuto direttamente sul social.</p>
+          </div>
+          <script async src="https://www.instagram.com/embed.js"></script>
+          <script async src="https://www.tiktok.com/embed.js"></script>
+          <!-- META POSTS END -->'''
+
+
           def main():
               try:
                   feed = collect(
@@ -101,27 +138,7 @@ jobs:
                   index = Path("index.html")
                   original = index.read_text()
                   start, end = "<!-- META POSTS START -->", "<!-- META POSTS END -->"
-                  cards = []
-                  for post in feed["posts"]:
-                      date = datetime.fromisoformat(post["published_at"]).strftime("%d/%m/%Y")
-                      network = "Facebook" if post["network"] == "facebook" else "Instagram"
-                      text = post["text"] or "Scopri il contenuto sul nostro profilo."
-                      if len(text) > 550:
-                          text = text[:547].rsplit(" ", 1)[0] + "…"
-                      cards.append(
-                          '<article class="event-card"><div class="event-date">'
-                          f'{network} · {date}</div><p style="white-space:pre-line">'
-                          f'{escape(text)}</p><a class="btn btn-secondary" target="_blank" '
-                          f'rel="noopener" href="{escape(post["url"], quote=True)}">'
-                          f'Apri su {network} ↗</a></article>'
-                      )
-                  refreshed = datetime.fromisoformat(feed["updated_at"]).strftime("%d/%m/%Y %H:%M UTC")
-                  section = (start + '\n<div id="ultimi-post-social" style="margin-top:32px">'
-                             '<h3>Ultimi post dai nostri social</h3>'
-                             f'<p class="social-note">Ultimo aggiornamento: {refreshed}. '
-                             'I nuovi post Facebook e Instagram vengono controllati ogni ora.</p>'
-                             '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px">'
-                             + "\n".join(cards) + '</div></div>\n' + end)
+                  section = render_windows(feed)
                   if start in original and end in original:
                       before, rest = original.split(start, 1)
                       _, after = rest.split(end, 1)
@@ -142,11 +159,11 @@ jobs:
                   print("Meta synchronization failed; existing feed preserved.", file=sys.stderr)
                   return 1
               return 0
-          
-          
+
+
           if __name__ == "__main__":
               sys.exit(main())
-          PYCODE
+          PYTHON
       - name: Save updated public feed
         run: |
           git config user.name "github-actions[bot]"
